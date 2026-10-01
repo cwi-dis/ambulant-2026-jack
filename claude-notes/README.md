@@ -28,6 +28,23 @@ was known at which point.
 | [history-jack.md](history-jack.md) | with Jack | Jack's corrections and additions to the cold history, cross-checked against the repo |
 | [history-recovery.md](history-recovery.md) | with Jack | Deferred: where the lost hg history and the issue tracker live, and how to import them later |
 
+## Effort
+
+From the Claude Code session transcript (session `a5fe2aad`, 2026-10-01)
+and the commit timestamps. *Claude busy* = time from Jack's message to the
+end of Claude's response, summed. The rest of the wall-clock time is mostly
+Jack (reading, thinking, answering, installing tools), plus any interruptions.
+
+| Phase | Wall clock | Claude busy | Jack's turns | Commit |
+|-------|-----------:|------------:|-------------:|--------|
+| 0. Planning (the "grand plan") | 12:36 → 13:08, ~32 min | 0.7 min | 1 | — |
+| 1. Cold pass | 13:08 → 13:13, ~5 min | 4.5 min | 1 | `33b6ace8e` 13:12 |
+| 2. History with Jack | 13:31 → 14:41, ~70 min | ~8 min | 8 | `96fd3b5c0` 14:40 |
+
+The cold pass was fast because it was all mechanical reading and grepping
+(about 100 tool calls). Phase 2 was dominated by Jack's time; Claude's share
+was mostly cross-checking Jack's answers against git and hg history.
+
 ## Cold pass provenance
 
 - Date: 2026-10-01
