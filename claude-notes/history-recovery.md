@@ -72,3 +72,74 @@ Plan: a **read-only archive** (no import into GitHub Issues).
    them.
 4. Do the same for the `support` tracker and the mailman list archives if
    they turn out to have content.
+
+## Binary releases (found 2026-10-01)
+
+SourceForge `projects/ambulant/files/` still has 58 files: binaries for every
+release from 1.2 (Zaurus, 2004) to 2.6 (2015). For 2.6: macOS `.dmg`,
+Windows `.exe`, source tarball, npambulant for Linux/macOS/Windows, and
+ieambulant. Older: 2.4, 2.2, 2.0.2 (WinCE, Nokia 800), 1.8 (Windows, Nokia
+770), 1.4.5 (Mac OS X 10.3), plus prebuilt ffmpeg/third-party bundles for
+Windows.
+
+- **`Ambulant-2.6-mac.dmg`** (inspected, not run): universal x86_64 + i386,
+  minimum macOS 10.7, SDK 10.10, signed with CWI's Developer ID
+  (W5J7983J99, 2015-02-02), not notarized. Bundles SDL2, ffmpeg 2.0 (lavc
+  55), expat, libambulant, libambulant_cg/_sdl/_ffmpeg; `PlugIns/` has
+  python, xerces and xpath_state plugins **with their `.la` files** (as
+  `plugin_engine.cpp` expects). The Python plugin links against the system
+  Python 2.7 framework, which no longer exists.
+- **"2.6 for MacOSX10.6"** (uploaded 2017-08-23): a hand-built 2.6 for
+  10.6.8, because the official build didn't work there. Its README documents
+  the workarounds (yasm 1.2, ffmpeg 2.0.2 with `--disable-optimizations`
+  because of a compiler bug, an SDL2 patch from MacPorts, signing on a
+  machine that still had the keys).
+- **Running old binaries:** this machine (boor) has Rosetta 2. Jack also has
+  beignet (a 2018 Intel MacBook) and flap (older than Ambulant 2.6) for
+  running the x86_64 builds natively.
+
+### Reference player: 2.6 for macOS runs (2026-10-01)
+
+**Jack:** mounted `Ambulant-2.6-mac.dmg` on boor (macOS 26, Apple Silicon,
+via Rosetta 2) and double-clicked Ambulant Player: **it opens without a
+hitch and plays Welcome.** Audio plays and stays in sync with the images;
+the clickable link works (it opens a browser on ambulantplayer.org, which
+returns an nginx error page, as expected); play/stop/pause and the menus
+work. All three demo documents (in `DemoPresentation`) seem to work.
+
+Log from the player's logging window (abridged):
+
+```
+DEBUG Ambulant Player: compile time version 2.6, runtime version 2.6
+DEBUG Ambulant Player: built on Feb  2 2015 for Macintosh/CoreGraphics/x86_64
+TRACE plugin_engine: using LTDL plugin loader
+TRACE plugin_engine: Scanning plugin directory: .../Ambulant Player.app/Contents/PlugIns
+TRACE plugin_engine: examining Python plugin libamplugin_xpath_state.la
+TRACE plugin_engine: loading .../libamplugin_xpath_state.la
+TRACE plugin_engine: examining Python plugin libamplugin_xerces.la
+TRACE plugin_engine: loading .../libamplugin_xerces.la
+TRACE plugin_engine: examining Python plugin libamplugin_python.la
+TRACE plugin_engine: Done with plugin directory: ...
+TRACE xerces_plugin: registered
+TRACE Using parser any
+TRACE xpath_state_plugin: registered
+TRACE file:///.../Welcome.smil: Parsing document...
+TRACE file:///.../Welcome.smil: Parser done
+TRACE surface_impl[...].renderer_done(...): not found in 0 active renderers!
+```
+
+**Claude's reading:**
+
+- It's the **native Cocoa player** (`player_macosx` + `gui/cg`), not a GUI
+  toolkit on top of SDL, as Jack remembered it. SDL2 and `libambulant_sdl`
+  are bundled only for audio output.
+- Plugin loading works exactly as the code says (scan for `.la`, load via
+  libltdl). The log message labels every plugin "Python plugin", a small
+  bug in the message. The Python plugin is examined and silently skipped,
+  presumably disabled by default.
+- `renderer_done ... not found in 0 active renderers!`: a harmless warning.
+
+**Consequences:** we have a **reference player** for behaviour comparison.
+And the native Cocoa player is a candidate for the minimal product, instead
+of the bare SDL window, since it demonstrably still works as a binary. To
+be decided when the MVP plan is picked up again.

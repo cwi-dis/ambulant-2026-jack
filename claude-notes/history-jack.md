@@ -348,3 +348,14 @@ is checked out twice in Jack's `~/src`: as `mm` and as a later checkout,
 server. `cmif` contains some extra editor scratch files (`#…#`, `@x`); real
 differences not yet compared. Whether the CVS repository itself (with
 history) survives somewhere is an open question.
+
+## Personal notes (to discuss later)
+
+**Jack:** composed the soundtrack of the Welcome document
+(`Extras/Welcome/data/AmbulantTune.mp3`), and was rather proud of it.
+
+**Jack (on seeing the 2.6 player run again):** had forgotten how the GUI
+was done, and had worried it was written in Python. Remembered it as "some
+GUI toolkit on top of SDL", but the log and bundle show it's the native
+Cocoa/CoreGraphics player, with SDL only for audio. (See
+[history-recovery.md](history-recovery.md), "Reference player".)
