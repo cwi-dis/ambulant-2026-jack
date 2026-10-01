@@ -62,3 +62,24 @@ one offscreen back-end for the desktop) would be the 2026 answer.
 
 Possible prior art (HTML+TIME in Internet Explorer, INRIA's JavaScript
 timesheets) not investigated; Jack knows that landscape better.
+
+## Testing resource: the official SMIL 3.0 test suite
+
+The W3C SMIL 3.0 test suite is still online:
+<https://www.w3.org/2007/SMIL30/testsuite/> (zip:
+`New-SMIL30/New-SMIL30-testsuite-16-09-2008.zip`; per module: Timing and
+Sync, Animation, Layout, Media, Content Control, smilText, State,
+Structure, Metainformation, Namespace/Doctype; plus SMIL 2.0 tests). The
+implementation report
+(<https://www.w3.org/2007/SMIL30/SMIL30-implementation-result.html>) records
+Ambulant's 2008 results per test.
+
+Uses:
+
+- conformance tests for any revived core (compare against the 2.6
+  reference player and the 2008 results);
+- a concrete yardstick for the WebAssembly-port vs TypeScript-rewrite
+  question: "how much of SMIL is needed" can be expressed per test-suite
+  module, and a rewrite has to pass the same tests.
+
+Not downloaded yet.

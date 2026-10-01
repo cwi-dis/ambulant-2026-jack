@@ -372,3 +372,26 @@ was done, and had worried it was written in Python. Remembered it as "some
 GUI toolkit on top of SDL", but the log and bundle show it's the native
 Cocoa/CoreGraphics player, with SDL only for audio. (See
 [history-recovery.md](history-recovery.md), "Reference player".)
+
+## SMIL 3.0: the standard and its implementations
+
+Found by Claude after a hint from Jack ("have a look at the SMIL 3.0 spec
+authors, just for fun"), 2026-10-01.
+
+- **SMIL 3.0**, W3C Recommendation 1 December 2008
+  (<https://www.w3.org/TR/SMIL3/>). Editors, in order: **Dick Bulterman,
+  Jack Jansen, Pablo Cesar, Sjoerd Mullender (all CWI)**; Eric Hyche
+  (RealNetworks); Marisa DeMeglio and Julien Quint (DAISY Consortium);
+  Hiroshi Kawamura and Daniel Weck (NRCD); Xabiel García Pañeda and David
+  Melendi (Universidad de Oviedo); Samuel Cruz-Lara (INRIA); Marcin Hanclik
+  (ACCESS); Daniel F. Zucker (Nokia); Thierry Michel (W3C).
+- **Implementation report**
+  (<https://www.w3.org/2007/SMIL30/SMIL30-implementation-result.html>,
+  results as of April 2008): **A = Ambulant, B = RealPlayer, C = GRiNS.**
+  Two of the three implementations that showed SMIL 3.0 to be implementable
+  came from CWI's line of work. About 150 rows of test results.
+- This puts earlier findings in context: Sjoerd writing the SMIL 3.0 DTDs
+  (2008), "careful reading of the SMIL spec (by me and Sjoerd)" (2006),
+  Kees's `--with-smil-test` option (2007). **Ambulant was effectively a
+  reference implementation of the standard**, written largely by the
+  standard's own editors.
