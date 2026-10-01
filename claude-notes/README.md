@@ -30,6 +30,7 @@ was known at which point.
 | [decisions.md](decisions.md) | assessment | Revival decisions and their reasoning |
 | [probe-autotools.md](probe-autotools.md) | assessment | Probe: existing autotools build with a 2026 toolchain; code rot vs build rot |
 | [players-and-python.md](players-and-python.md) | assessment | Core / back-end / player layers, comparison of the players, the Python bridge |
+| [explore-wasm.md](explore-wasm.md) | exploration | What a WebAssembly port would keep and replace |
 
 ## Effort
 
