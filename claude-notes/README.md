@@ -25,6 +25,8 @@ was known at which point.
 | [architecture.md](architecture.md) | cold | What the code is: layers, core objects, playback flow, platforms |
 | [history-cold.md](history-cold.md) | cold | History as far as it can be reconstructed from the repo alone, plus questions for Jack |
 | [rot-audit.md](rot-audit.md) | cold | External dependencies and platform APIs, and what has happened to them since 2016 |
+| [history-jack.md](history-jack.md) | with Jack | Jack's corrections and additions to the cold history, cross-checked against the repo |
+| [history-recovery.md](history-recovery.md) | with Jack | Deferred: where the lost hg history and the issue tracker live, and how to import them later |
 
 ## Cold pass provenance
 
