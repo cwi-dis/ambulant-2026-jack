@@ -39,3 +39,37 @@ current compiler, time-boxed to about an hour, in a scratch copy, with no
 fixes committed. This separates code rot (compiler errors) from build-system
 rot, before the switch to CMake makes the two indistinguishable. Results:
 [probe-autotools.md](probe-autotools.md).
+
+## D2 — Don't revive bgen; Python bridge out of scope (2026-10-01)
+
+**Decision:**
+
+- Don't revive bgen (Python 2, removed from Python 3) or the generated
+  `src/pyambulant` bridge.
+- The Python bridge and the Python plugins are **out of scope** for now.
+- The one functional dependency, the trace plugin that produced the
+  nightly reference traces (`tests/nightly`), is replaced by a small C++
+  `player_feedback` implementation in the headless driver.
+- If Python access is wanted later: pybind11 or nanobind, with trampoline
+  classes for a **curated** set of interfaces (e.g. `embedder`,
+  `player_feedback`, `playable_factory`, `state_component`), not the whole
+  API.
+
+**Why:** Jack's criterion: reviving bgen is only worth it if something
+important depends on two-way bridging, i.e. implementing first-class
+citizens in Python. Otherwise pybind11 or even ctypes is easier and more
+modern. Claude checked what depends on it:
+
+- Every Python plugin subclasses a C++ interface, so they all need the
+  reverse bridge. But apart from `pyamplugin_trace` (`embedder`,
+  `player_feedback`) they're examples or experiments: `DummyPlayable…`,
+  `DummyRecorder…`, `MyTimerSync…`, `MyStateComponent…`. The real SMIL
+  State engine is the C++ `xpath_stateplugin`.
+- pybind11/nanobind can also bridge both ways (trampolines for virtual
+  methods), so two-way bridging no longer requires bgen. What bgen offered
+  extra was automatic generation from the headers, which isn't needed for a
+  small curated set.
+- ctypes is unsuitable: C only, so it would need a C API shim, and
+  implementing interfaces in Python would mean hand-written callbacks.
+
+Background, including the bgen history: [players-and-python.md](players-and-python.md).

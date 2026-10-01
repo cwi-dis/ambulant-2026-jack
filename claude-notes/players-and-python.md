@@ -50,7 +50,33 @@ mainloop pattern.)
 
 ## The Python bridge (Jack's question 2)
 
-*To be complemented by Jack's own account of the effort that went into it.*
+**Jack (history):** bgen was written by Guido van Rossum, to make the
+classic Mac OS (7/8/9, pre-OS X) toolboxes callable from Python. Jack
+inherited it when he became MacPython lead and maintained it from then on.
+Originally it was one-directional (calling native code from Python, with some
+help for callbacks). Jack later added calling C++ methods, and then
+implementing C++ interfaces in Python. He *thought* all of this made it into
+bgen as shipped with Python, but wasn't sure.
+
+**Repo check (Claude, against CPython's `2.7` branch on GitHub):**
+
+- `src/pyambulant/bgen/` is a copy of CPython's `Tools/bgen/bgen`,
+  imported by Jack on 2013-10-01 ("they have pretty much disappeared from
+  Python distributions"). It's identical to CPython 2.7's version except
+  for 2 lines: a typo that CPython later fixed, and a debugging line
+  (`xyzzy = returnlist`) in `scantools.py`.
+- **The C++ support (`bgenCxxSupport.py`, "Preliminary, 14-jun-05") and
+  the reverse bridge (`bgenBackSupport.py`) are not in CPython**, neither
+  in 2.7 nor anywhere else under `Tools/bgen`. They exist only in Ambulant,
+  written in June 2005 together with the start of pyambulant. So the answer
+  to Jack's doubt: the C++ and implement-interfaces-in-Python parts did
+  **not** make it into Python's bgen. (The 2006 README needed "a
+  development Python from svn" for a newer bgen, so some generic
+  improvements did go into Python itself.)
+- bgen was removed from CPython in Python 3 (no `Tools/bgen` in 3.0).
+  bgen itself survives in CPython's 2.x history, but its **C++ and
+  reverse-bridging extensions exist only in the Ambulant repo** (as far as
+  we know).
 
 - **`src/pyambulant`** is a **two-way bridge**: Python can drive
   Ambulant, and Python classes can implement C++ interfaces (renderers,
