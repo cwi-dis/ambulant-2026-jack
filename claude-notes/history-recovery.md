@@ -143,3 +143,69 @@ TRACE surface_impl[...].renderer_done(...): not found in 0 active renderers!
 And the native Cocoa player is a candidate for the minimal product, instead
 of the bare SDL window, since it demonstrably still works as a binary. To
 be decided when the MVP plan is picked up again.
+
+## Copies on sap (Jack's home machine, found 2026-10-01)
+
+The sources above are on boor (Jack's work desktop). Sap has an overlapping
+but different set, inspected read-only:
+
+| Directory | Size | What | Compared with boor |
+|-----------|-----:|------|--------------------|
+| `~/src/ambulant` | 4.0 GB | hg | not yet: **hg isn't installed on sap** |
+| `~/src/ambulant-documents` | 442 MB | hg | not yet (same reason). Boor has it too |
+| `~/src/ambulant-private` | 1.7 MB | hg, has a `certificates` folder | not inspected (secrets) |
+| `~/src/mm` | 133 MB | GRiNS, CVS | see below |
+| `~/src/mmdocuments` | 2.6 GB | CVS, **new**: not on boor as far as we know | see below |
+
+`ambulant-sandbox` and `cmif` aren't on sap.
+
+### GRiNS: which copy is newest?
+
+Not answered yet, but two caveats were found:
+
+- **Host mix-up.** Sap's `mm` was checked out from
+  `oratrix.oratrix.nl:/ufs/mm/CVSPRIVATE` (module `mm/demo`). On boor,
+  `mm` comes from `oratrix.oratrix.com` and `cmif` from `oratrix.oratrix.nl`.
+  So sap's `mm` probably corresponds to boor's **`cmif`**, not boor's `mm`.
+  The `.nl` host suggests the older of the two.
+- **Branch checkout.** Sap's `mm` has the sticky tag **`TGRiNS-MacOSX`**
+  (`CVS/Tag`): it's a branch checkout, not the trunk. A plain `diff -r`
+  between copies can therefore mislead.
+
+Sap's `mm` has 3,255 files in 299 directories. Every `CVS/Entries` date is
+2003-03-28 (probably the checkout date), and file dates run from 1991 to
+2003.
+
+**Method for the comparison:** on each copy (sap `mm`, boor `mm`, boor
+`cmif`, plus any Time Machine copies), dump a manifest of path, CVS
+revision and sticky tag from all `CVS/Entries` files, then compare:
+
+- same branch, higher revision = newer;
+- files present in only one copy are listed separately;
+- a file whose modification time differs from the timestamp in
+  `CVS/Entries` has local edits that were never committed, which may be
+  unique to that copy.
+
+### `mmdocuments`
+
+CVS checkout of `oratrix.oratrix.com:/ufs/mm/CVSPRIVATE/mmdocuments`. File
+dates run from 2000 to 2011-03-16, just after the move to hg.
+
+| Directory | Size | Contents |
+|-----------|-----:|----------|
+| `SMIL30` | 438 MB | SMIL 3.0 spec working material, per module (Timing, Layout, State, ContentControl, …), plus `Tests` |
+| `SMIL21` | 8 MB | The same for SMIL 2.1 (Timing21, ExtMobile, …) |
+| `interop2` | 109 MB | SMIL 2.0 interoperability test cases (2000) |
+| `ambulant-tests` | 300 MB | Test documents, bug-report cases, the ambulantplayer.org web pages |
+| `AnnotatorDemo`, `annotatordoc` | 1.7 GB | Annotator demo, including `pyamplugin` (Python plugin) code |
+| `Daisy202_text_pdtb`, `FNB` | 31 MB | DAISY 2.02 books, including "no pin" pdtb variants |
+| `NoBudgetStateDemo` | 36 MB | SMIL State demo with XForms ("formfaces") |
+| `ITEA_Review` | 3 MB | Review demo, including Nokia material |
+| `sandbox` | tiny | A blogger experiment |
+| `ambulant-private` | ? | **Not inspected** (presumably secrets, like the hg repo of that name) |
+
+**Relevance to D4:** `ambulant-tests`, the DAISY books and `SMIL30/Tests`
+are useful test material. The DAISY books are exactly the accessibility
+use case. `interop2` and `SMIL30/Tests` may complement the W3C test suite.
+None of it should be published before checking for third-party content and
+the `ambulant-private` subdirectory.
