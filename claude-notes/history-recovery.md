@@ -15,6 +15,11 @@ section of [history-jack.md](history-jack.md).
 | Sandbox (CVS, 2005–2009) | Jack's `~/src/ambulant-sandbox` | SourceForge CVS service is gone, so possibly the only copy |
 | Private repo (hg) | Jack's `~/src/ambulant-private` | contains secrets; **never publish** |
 | Issue tracker (887 tickets) | SourceForge `p/ambulant/bugs` | also `support`, `reviews`, `mailman` tools there |
+| Backup of the hg server (probably May 2014) | `server.huiskamer.private`, disk `DISArch2021`, `TechnicalArchive/mercurial` | Jack's home server; not inspected. A third copy to cross-check the history import against |
+| Old CWI svn repositories | same disk, `TechnicalArchive/cwi-old-svn-repositories` | not inspected; may contain related material |
+
+Locations are the last known ones (2026-10-01); what to recover from them is
+decided later.
 
 **Backups (Jack):** not a real risk. Jack's `~/src` on his work desktop is
 Time Machine backed up, and older copies exist on older machines.
