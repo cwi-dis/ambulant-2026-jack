@@ -126,3 +126,54 @@ the C++ plugins, `Extras` (including `DTDCache`, used by Xerces), `tests`,
 **Why:** fewer moving parts for the CMake work, less noise when searching
 the code. Nothing is lost: everything remains in git history (and in the
 hg repositories).
+
+## D4 — Direction: an embeddable SMIL engine for accessibility (2026-10-01)
+
+**Status: a direction, not a final decision.** Jack: "we don't know yet"
+which hosts exactly.
+
+**Context (Jack):** the goal is to use SMIL for multimodal presentation for
+people with disabilities (visual or hearing impairments). The web is one
+platform of interest; Unity VR applications are another; maybe Unreal or
+others.
+
+**Direction:**
+
+1. **Port, don't rewrite.** A TypeScript rewrite would only serve the web;
+   Unity would need C# and Unreal C++, so three engines. A portable C++
+   core serves all of them: web via WebAssembly; Unity via a native plugin
+   with a C API (P/Invoke; Unity WebGL builds compile native plugins to
+   WebAssembly too); Unreal by linking C++ directly.
+2. **The host drives the clock.** Unity `Update()`, Unreal `Tick`, browser
+   `requestAnimationFrame`: one externally driven, single-threaded event
+   processor variant (next to the existing thread and GCD variants).
+   `timer_sync` aligns the SMIL clock with host media clocks.
+3. **Presentation is an abstract interface.** The core doesn't draw. It
+   tells the host to start, stop, position or animate media in regions,
+   and the host presents them with its own means (Unity
+   `VideoPlayer`/`AudioSource`, Unreal Media Framework, HTML elements). In
+   VR a region can be a 3D panel, a spatial audio source, or a caption
+   surface. This generalises the 2003 design's "pass a URL and say play";
+   the `none`/trace back-end is the closest existing starting point.
+4. **A narrow C API** as the single external interface: open a document,
+   set preferences (captions, audio description, language), advance time,
+   receive presentation events, send user events. Any language binding,
+   Python via `ctypes` included, becomes small.
+
+**Why it fits:** SMIL has accessibility built in, and Ambulant implements
+it: `smil2/test_attrs.cpp` handles `systemCaptions`, `systemAudioDesc`,
+`systemOverdubOrSubtitle`, `systemLanguage` and `customTest`, alongside
+smilText (captions) and SMIL State (user preferences). DAISY people were
+among the SMIL 3.0 editors.
+
+**Effect on earlier decisions:**
+
+- **D1** stays (CMake, current dependencies), but the minimal product
+  becomes "Welcome plays through the embeddable engine with a simple
+  host". That host could be the SDL window, the browser or a small Unity
+  scene.
+- **D2** stays (no bgen); a C API makes a later Python binding small.
+- **D3** stays.
+- The native back-ends (`cg`, `gtk`, `d2`, `SDL`) become optional desktop
+  hosts instead of the centre of the design. Jack's "Python skin" idea is
+  one more host.
