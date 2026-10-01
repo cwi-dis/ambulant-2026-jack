@@ -354,6 +354,19 @@ history) survives somewhere is an open question.
 **Jack:** composed the soundtrack of the Welcome document
 (`Extras/Welcome/data/AmbulantTune.mp3`), and was rather proud of it.
 
+Puzzle solved together (2026-10-01): the tune is 4 bars at 120 BPM (8 s).
+It's built on the iconic bass line of "These Boots Are Made for Walkin'",
+with its downward progression turned into an upward one, so the two fit
+when played together (inversion, contrary motion). Claude's analysis found
+major chords walking up C minor pentatonic (C, E♭, F, G → C) in bar 2.
+It ties together the name (*ambulare*, to walk), the logo (a boot on a film
+strip, `src/libambulant/Ambulant.png`) and Jack being a bass player. The SMIL
+timing follows the music: the four selling points appear on the four
+steps of the walk (2.0/2.5/3.0/3.5 s), the "visit" link lands on the
+arrival at C (4.0 s), and the audio is clipped at 7.9 s, just before the
+bar line. Claude got "walking" from the etymology and the boot from the
+icon, but needed the "bass player" hint to name the song.
+
 **Jack (on seeing the 2.6 player run again):** had forgotten how the GUI
 was done, and had worried it was written in Python. Remembered it as "some
 GUI toolkit on top of SDL", but the log and bundle show it's the native
