@@ -27,6 +27,8 @@ was known at which point.
 | [rot-audit.md](rot-audit.md) | cold | External dependencies and platform APIs, and what has happened to them since 2016 |
 | [history-jack.md](history-jack.md) | with Jack | Jack's corrections and additions to the cold history, cross-checked against the repo |
 | [history-recovery.md](history-recovery.md) | with Jack | Deferred: where the lost hg history and the issue tracker live, and how to import them later |
+| [decisions.md](decisions.md) | assessment | Revival decisions and their reasoning |
+| [probe-autotools.md](probe-autotools.md) | assessment | Probe: existing autotools build with a 2026 toolchain; code rot vs build rot |
 
 ## Effort
 
