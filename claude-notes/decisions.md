@@ -73,3 +73,56 @@ modern. Claude checked what depends on it:
   implementing interfaces in Python would mean hand-written callbacks.
 
 Background, including the bgen history: [players-and-python.md](players-and-python.md).
+
+## D3 — What not to port (2026-10-01)
+
+**Decision:** classify the tree into four groups. Groups A and B are removed
+**together, once CMake covers the D1 scope**. Not earlier, because removing
+directories breaks the autotools build, and D1 leaves autotools untouched
+until then. Groups C and D stay.
+
+**A. Pointless: dead technology.**
+
+- `src/npambulant`, plus the npambulant projects in `projects/xcode43` and
+  `projects/vc10`, xulrunner in the third-party script, and
+  `scripts/geniepluginwebpage.py` (NPAPI is gone from all browsers)
+- `src/ieambulant` plus its `vc10` projects (ActiveX / Internet Explorer)
+- `gui/gstreamer`, src and include (gstreamer 0.10, audio only)
+- `gui/SDL/sdl_pango_smiltext.cpp` (SDL_Pango is dead; the SDL2_ttf variant
+  remains)
+- `gui/cg/atsui_text.mm` (ATSUI; unreferenced dead code)
+- `plugins/wkdombridge.mm` and `wkdomplugin.cpp` (legacy WebKit `WebView`
+  Objective-C DOM API)
+- `sandbox/gst-rtsp-0.10.8` and `sandbox/gstambulant-plugin-package-0.10.0`
+  (168k lines of vendored gstreamer 0.10 code)
+- `sandbox/sdl2-test`, `tracevis`, `sdl-fullscreen`, `delaying_webserver`
+- `installers/mkubuntuppa.sh`, `ambulant.spec.in`
+- `Documentation/mediasupport` (the 2015 codec support matrix, mostly
+  generated; Python 2 generators)
+
+**B. Superseded by D1:**
+
+- autotools files, `projects/xcode43`, `projects/vc10`
+- `third_party_packages/`, `scripts/build-third-party-packages.py`
+- `scripts/nightlybuild` (replaced by GitHub Actions)
+- `ffmpeg-osx-fatbuild.sh`, `internalize_*`, `patch_libtool.sh`,
+  `precheck-*`
+- `debian/` and `installers/sh-macos` are to be redone later, not ported
+
+**C. Not now, but not pointless (stay in the tree):**
+
+- `player_iphone` and the UIKit parts of `gui/cg`
+- `projects/android`
+- `player_mfc` + `gui/d2`
+- `player_gtk` + `gui/gtk`
+- `pyambulant` and the Python plugins (D2)
+- the streaming line (`ambulant-recorder-plugin`, `ambulant-server`,
+  `gstambulantsrc-1.0.x`)
+
+**D. Keep:** the core, `gui/cg`, `gui/SDL`, `player_sdl`, `player_macosx`,
+the C++ plugins, `Extras` (including `DTDCache`, used by Xerces), `tests`,
+`Documentation/Design` and `Documentation/user`.
+
+**Why:** fewer moving parts for the CMake work, less noise when searching
+the code. Nothing is lost: everything remains in git history (and in the
+hg repositories).
