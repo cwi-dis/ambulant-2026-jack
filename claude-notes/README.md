@@ -29,6 +29,7 @@ was known at which point.
 | [history-recovery.md](history-recovery.md) | with Jack | Deferred: where the lost hg history and the issue tracker live, and how to import them later |
 | [decisions.md](decisions.md) | assessment | Revival decisions and their reasoning |
 | [probe-autotools.md](probe-autotools.md) | assessment | Probe: existing autotools build with a 2026 toolchain; code rot vs build rot |
+| [players-and-python.md](players-and-python.md) | assessment | Core / back-end / player layers, comparison of the players, the Python bridge |
 
 ## Effort
 
