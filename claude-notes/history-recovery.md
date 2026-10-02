@@ -3,7 +3,8 @@
 Decision (Jack, 2026-10-01): **don't** bring hg tags, branches or the
 SourceForge issues into this fork now. They aren't needed for the porting
 investigation. This file records what exists and how to import it later, so
-the decision can be revisited cheaply. Background: the "old repositories"
+the decision can be revisited cheaply. Revisited for the tags on 2026-10-02: the
+release tags are now recreated, see "Release tags" below. Background: the "old repositories"
 section of [history-jack.md](history-jack.md).
 
 ## Sources
@@ -57,6 +58,48 @@ the hashes of the 7,175 commits already on GitHub**, because every fork
 Branches most likely to matter later, if ever: `release-ambulant-NN-branch`
 (the code as released), `amis-release-30` (Marisa's AMIS DAISY reader
 release), `exp-kees-plugin-ncl`, `exp-kees-sdl2-mac`.
+
+## Release tags (recreated 2026-10-02)
+
+Jack's goal: be able to answer "did we fix X in 1.6 or 1.8?", so one tag
+per release, and close is good enough. The 9 annotated tags
+`release-ambulant-<version>` were created locally (tagger Jack) from the
+hg repo in `~/src/ambulant`. Each tag message says whether it is exact or
+approximate, which hg tag it stands for, and how many files differ.
+
+| Tag | git commit | Date | Exact? |
+|-----|------------|------|--------|
+| `release-ambulant-1.0` | `36ec69d5bf98` | 2004-07-08 | exact (hg `release-ambulant-100`) |
+| `release-ambulant-1.2` | `321ae09c55e9` | 2004-12-23 | exact (hg `release-ambulant-120`) |
+| `release-ambulant-1.4` | `063d161eaead` | 2005-05-09 | approx. 1.4.5: 87 files differ; near where the 1.4 branch split off |
+| `release-ambulant-1.6` | `dd5ccf49b8d0` | 2005-12-13 | approx. 1.6.1: 65 files differ; merge of the 1.6 branch into the trunk |
+| `release-ambulant-1.8` | `3a5e409cdd49` | 2007-02-15 | approx.: 23 files differ; where the release branch split off |
+| `release-ambulant-2.0` | `a180e79048dc` | 2008-12-19 | approx. 2.0.2: 84 files differ; merge of the 2.0.1 changes into the trunk |
+| `release-ambulant-2.2` | `6dd627ca3bae` | 2010-06-09 | approx.: 209 files differ; the roughest, see below |
+| `release-ambulant-2.4` | `2acde860566b` | 2012-12-11 | exact (hg `release-ambulant-24`) |
+| `release-ambulant-2.6` | `12f3cc4cb743` | 2015-02-04 | exact: last changeset of `release-ambulant-26-branch`; 2.6 was never tagged in hg |
+
+**How the hg-to-git mapping works:** of the 7,175 changesets in hg's
+`::default`, 7,173 match exactly one git commit on (timestamp, full commit
+message); the other 2 are twins with identical timestamp and message, none
+of them tagged. For all 25 hg tags on the default line the file lists of
+hg and git agree (apart from `.hgtags`, which the conversion dropped).
+
+**How the approximate ones were picked:** the release tags of 1.4.x, 1.6,
+1.8, 2.0.x and 2.2 are on release branches, which git doesn't have. For
+each, the candidates were the default-line commits from the branch point up
+to the release date; the one with the fewest differing files
+(`hg status --rev <candidate> --rev <release tag>`) won. Fixes made only on
+a release branch are therefore missing from the tagged commit, but usually
+present in the next release, since the branches were merged back. The 2.2
+branch lived six months and was merged into the trunk by hand several
+times (no hg merge), so `release-ambulant-2.2` also contains trunk work
+that only shipped later.
+
+**Left out:** the remaining hg tags (pre-1.0 milestones like
+`release-ambulant-X`/`-O`, `before-*` markers, experiment and merge
+tags). If the release branches are ever imported (see above), the exact
+release tags can replace the approximate ones.
 
 ## How to archive the issues later
 
