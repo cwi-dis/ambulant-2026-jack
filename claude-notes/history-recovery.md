@@ -14,11 +14,12 @@ section of [history-jack.md](history-jack.md).
 | Test/demo documents (hg, 149 changesets) | Jack's `~/src/ambulant-documents` + `hg.code.sf.net/p/ambulant/ambulant-documents` | SF has 1 extra changeset (2011-09-19) |
 | Sandbox (CVS, 2005–2009) | Jack's `~/src/ambulant-sandbox` | SourceForge CVS service is gone, so possibly the only copy |
 | Private repo (hg) | Jack's `~/src/ambulant-private` | contains secrets; **never publish** |
-| Issue tracker (887 tickets) | SourceForge `p/ambulant/bugs` | also `support`, `reviews`, `mailman` tools there |
+| Issue tracker (887 tickets) | SourceForge `p/ambulant/bugs` | Jack queued SF's project export (2026-10-02); the zip goes into the SourceForge backup below. The `support`, `reviews` and `mailman` tools turned out to be empty (no mailing lists left; "Reviews" is SF's user-review page) |
 | Backup of the hg server (probably May 2014) | `server.huiskamer.private`, disk `DISArch2021`, `TechnicalArchive/mercurial` | Jack's home server; not inspected. A third copy to cross-check the history import against |
 | Old CWI svn repositories | same disk, `TechnicalArchive/cwi-old-svn-repositories` | not inspected; may contain related material |
+| SourceForge backup (2026-10-02): all 58 release files, later also the issue export | `server.local` (or `server.huiskamer.private`), disk `DISArchive` (a different disk), `TechnicalArchive/2015-Ambulant-Sourceforge` | `installers/` mirrors SF's folder layout (529 MB, 1.2–2.6), MD5-verified against SF's file feed (kept as `MANIFEST.xml`), file dates are the SF upload times; `fetch.py` re-runs the download. `issues/` will hold the Bugs export zip |
 
-Locations are the last known ones (2026-10-01); what to recover from them is
+Locations are the last known ones (2026-10-01/02); what to recover from them is
 decided later.
 
 **Backups (Jack):** not a real risk. Jack's `~/src` on his work desktop is
